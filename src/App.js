@@ -1,33 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
-import {useStates, useEffect} from 'react';
+import {useState, useEffect } from 'react';
 
 
 function App() {
 
-    async function  callProducts(){
+  const [products , setProdutcs] = useState([]);
+
+  useEffect( () => {
+
+      async function  callProducts(){
       const response = await fetch('https://posgrad-backend-production.up.railway.app/produtos');
-      const data = response.JSON();
-      console.log(data);
+      const data = await response.json();
+      setProdutcs(data);
   
     }
 
     callProducts()
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <ul>
+        {products.map(product => <li>{product.nome}</li>)}
+        </ul>
       </header>
     </div>
   );
