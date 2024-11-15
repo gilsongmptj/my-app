@@ -1,7 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import {useStates, useEffect} from 'react';
+
 
 function App() {
+
+    async function  callProducts(){
+      const response = await fetch('https://posgrad-backend-production.up.railway.app/produtos');
+      const data = response.JSON();
+      console.log(data);
+  
+    }
+
+    callProducts()
   return (
     <div className="App">
       <header className="App-header">
